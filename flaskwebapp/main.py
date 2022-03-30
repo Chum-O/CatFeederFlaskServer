@@ -38,7 +38,25 @@ def setTime(time):
     args = request.args
     print(args)
     print(time)
-    print('Something')
+    return "success"
+
+@app.route("/setServo/<ratio>", methods=['POST'])
+def setServo(ratio):
+    mid = int(ratio.find(':'))
+    xarg = ratio[0:mid]
+    yarg = ratio[mid+1:]
+    print(ratio)
+    print(xarg)
+    print(yarg)
+    laserToy = ServoMotor()
+    laserToy.setX((100-int(xarg)))
+    laserToy.setY(int(yarg))
+    return "success"
+
+@app.route("/toggleLaser", methods=['GET'])
+def toggleLaser():
+    laserToy = ServoMotor()
+    laserToy.toggleLaser()
     return "success"
 
 @app.route("/getTimes", methods=['GET'])
