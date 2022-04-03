@@ -31,9 +31,18 @@ class charLCD(object):
         return
 
     def setMessage(self,line1,line2):
+        self.lcd.clear()
         if(len(line1)<16 and len(line2)<16):
             self.lcd.message = line1 + "\n" + line2
             self.lcd.backlight = False
+        return
+
+    def tempMessage(self,line1,line2,t):
+        if(len(line1)<16 and len(line2)<16):
+            self.lcd.message = line1 + "\n" + line2
+            self.lcd.backlight = False
+        time.sleep(t)
+        self.lcd.clear()
         return
 
     def clearLCD(self):
@@ -41,8 +50,8 @@ class charLCD(object):
         return
 
     def clearLCDLeft(self):
-        for i in range(len(self.lcd.message)):
-            time.sleep(.1)
+        for i in range(len(18)):
+            time.sleep(.2)
             self.lcd.move_left()
         self.lcd.clear()
         return
